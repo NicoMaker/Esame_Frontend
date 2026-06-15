@@ -5,7 +5,7 @@ Interfaccia digitale di gestione e prenotazione per il circuito internazionale d
 ## Avvio
 
 Il progetto è **solo front-end** — non richiede back-end.  
-I dati sono hardcoded in `src/data/db.json`.
+I dati sono hardcoded in (src/data/db.json)
 
 ### Metodo 1 — Live Server (VS Code)
 
