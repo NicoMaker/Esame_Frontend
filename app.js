@@ -138,7 +138,7 @@ function renderOverview() {
       <div class="stat-sub">Su tutti gli eventi</div>
     </div>
     <div class="stat-card green">
-      <div class="stat-label">Revenue Totale</div>
+      <div class="stat-label">Costo Totale</div>
       <div class="stat-value" style="font-size:22px">${fmtMoney(totalRevenue)}</div>
       <div class="stat-sub">Prenotazioni confermate</div>
     </div>
