@@ -980,7 +980,7 @@ function toast(msg, type = "success") {
   const container = document.getElementById("toast-container");
   const t = document.createElement("div");
   t.className = `toast ${type}`;
-  t.innerHTML = `<span>${type === "success" ? "✅" : "delete"}</span> ${msg}`;
+  t.innerHTML = `<span>${type === "success" ? "sucess" : "delete"}</span> ${msg}`;
   container.appendChild(t);
   setTimeout(() => t.remove(), 3500);
 }
