@@ -439,7 +439,7 @@ function renderBookingsTable() {
       </tr>`;
         })
         .join("")
-    : `<tr><td colspan="9"><div class="empty-state"><div class="empty-state-icon">📭</div><div class="empty-state-title">Nessuna prenotazione</div><div class="empty-state-sub">Crea una nuova prenotazione con il pulsante in alto</div></div></td></tr>`;
+    : `<tr><td colspan="9"><div class="empty-state"><div class="empty-state-icon"></div><div class="empty-state-title">Nessuna prenotazione</div><div class="empty-state-sub">Crea una nuova prenotazione con il pulsante in alto</div></div></td></tr>`;
 }
 
 function sortBookings(key) {
