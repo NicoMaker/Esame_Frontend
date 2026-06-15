@@ -699,7 +699,7 @@ function renderWizardStep2() {
   let discountMsg = "";
   switch (days) {
     case 60:
-      discountMsg = `Prenotazione con ${days} giorni di anticipo — sconto Early Bird 20%!`;
+      discountMsg = `Prenotazione con ${days} giorni di anticipo — sconto 20%!`;
       break;
     case 30:
       discountMsg = ` Prenotazione con ${days} giorni di anticipo — sconto 15%!`;
