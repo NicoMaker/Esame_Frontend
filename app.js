@@ -112,7 +112,8 @@ function fmtDate(d) {
   return `${g} ${months[+m - 1]} ${y}`;
 }
 
-const fmtMoney = (n) => "€ " + Number(n).toLocaleString("it-IT", { minimumFractionDigits: 2 });
+const fmtMoney = (n) =>
+  "€ " + Number(n).toLocaleString("it-IT", { minimumFractionDigits: 2 });
 
 function renderOverview() {
   const totalEvents = DB.events.length;
