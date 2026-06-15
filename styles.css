@@ -939,3 +939,10 @@ select option {
     padding: 16px;
   }
 }
+
+.structure {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 24px;
+}
