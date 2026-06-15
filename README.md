@@ -14,11 +14,11 @@ I dati sono hardcoded in `src/data/db.json`.
 3. Clic destro su `index.html` → **Open with Live Server**
 4. Si apre automaticamente su `http://127.0.0.1:5500`
 
-
 ### Metodo 2 — Node.js serve
 
 ```bash
-npx serve .
+npm i
+npm run dev
 ```
 
 > Il file `db.json` viene caricato via `fetch()`, quindi è **necessario un server HTTP**.  
@@ -27,17 +27,20 @@ npx serve .
 ## Funzionalità implementate
 
 ### Compito 1 — Architettura modulare
+
 - Layout responsive con sidebar fissa, topbar e area contenuto
 - Navigazione SPA (Single Page Application) senza router esterno
 - Design system con CSS variables, componenti riutilizzabili
 
 ### Compito 2 — Gestione Eventi
+
 - Tabella eventi con ordinamento su tutte le colonne (↑ ↓)
 - Filtri per struttura e ricerca testuale
 - Form con validazione completa (nome, struttura, data, capienza, prezzo)
 - CRUD: creazione, modifica e cancellazione eventi
 
 ### Compito 3 — Sistema Prenotazioni
+
 - Wizard a 3 step: selezione evento → dati utente → riepilogo
 - Validazione form utente (nome, cognome, email, telefono, posti)
 - **Sconto automatico per anticipo**:
@@ -50,6 +53,7 @@ npx serve .
 - Aggiornamento automatico posti disponibili
 
 ### Compito 4 — Reportistica
+
 - KPI cards aggregate (prenotazioni, revenue, sconti)
 - **Grafico Donut**: distribuzione tipologie eventi
 - **Grafico Barre**: tasso di riempimento % per evento (colori dinamici)
