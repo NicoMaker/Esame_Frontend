@@ -2,6 +2,8 @@
 
 Interfaccia digitale di gestione e prenotazione per il circuito internazionale di eventi live.
 
+è stata sviluppata l'app solo del responsabili per renderlo più bella rispetto a fare le due sezioni separate
+
 ## Avvio
 
 Il progetto è **solo front-end** — non richiede back-end.  
@@ -48,5 +50,3 @@ I dati sono hardcoded in [src/data/db.json](src/data/db.json)
 - **Grafico Barre**: tasso di riempimento % per evento (colori dinamici)
 - **Grafico Linee**: andamento temporale prenotazioni e revenue (doppio asse Y)
 - Tabella storica completa prenotazioni
-
----
