@@ -1,328 +1,430 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LiveCircuit — Dashboard di Gestione</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-
-<div id="sidebar">
-  <div class="sidebar-logo">
-    <div class="logo-icon">🎪</div>
-    <div>
-      <div class="logo-text">LiveCircuit</div>
-      <div class="logo-sub">Management Platform</div>
-    </div>
-  </div>
-
-  <div class="sidebar-section">Navigazione</div>
-
-  <div class="nav-item active" data-view="overview" onclick="navigate('overview', this)">
-    <span class="nav-icon">⬡</span> Overview
-    <div class="nav-dot" style="background:var(--rock)"></div>
-  </div>
-  <div class="nav-item" data-view="events" onclick="navigate('events', this)">
-    <span class="nav-icon">🎫</span> Gestione Eventi
-    <div class="nav-dot" style="background:var(--tech)"></div>
-  </div>
-  <div class="nav-item" data-view="bookings" onclick="navigate('bookings', this)">
-    <span class="nav-icon">📋</span> Prenotazioni
-    <div class="nav-dot" style="background:var(--ibiza)"></div>
-  </div>
-  <div class="nav-item" data-view="reports" onclick="navigate('reports', this)">
-    <span class="nav-icon">📊</span> Reportistica
-    <div class="nav-dot" style="background:var(--green)"></div>
-  </div>
-
-  <div class="sidebar-section">Strutture</div>
-
-  <div class="venue-pill">
-    <div class="venue-dot" style="background:var(--rock)"></div>
-    <span class="text-sm">RockArena — Milano</span>
-  </div>
-  <div class="venue-pill">
-    <div class="venue-dot" style="background:var(--tech)"></div>
-    <span class="text-sm">TechCon Center — Berlino</span>
-  </div>
-
-  <div class="venue-pill">
-    <div class="venue-dot" style="background:var(--ibiza)"></div>
-    <span class="text-sm">Summer Breat Pavilion</span>
-  </div>
-
-  <div class="sidebar-venues">
-    <div class="venue-pill">
-      <div class="venue-dot" style="background:var(--tech)"></div>
-      <span class="text-sm">Summer Beat — Ibiza</span>
-    </div>
-  </div>
-</div>
-
-<div id="main">
-  <div id="topbar">
-    <span id="topbar-title" class="topbar-title">Overview</span>
-    <span id="topbar-sub" class="topbar-sub">— Tutte le strutture</span>
-    <div class="topbar-actions" id="topbar-actions"></div>
-  </div>
-
-  <div id="content">
-
-    <!-- VIEW: OVERVIEW -->
-    <div id="view-overview" class="view active">
-      <div class="page-header">
-        <div class="section-title">Dashboard Generale</div>
-        <div class="section-sub">Stato in tempo reale del circuito internazionale</div>
-      </div>
-
-      <div class="cards-grid" id="kpi-cards"></div>
-
-      <div class="venue-cards" id="venue-cards"></div>
-
-      <div class="table-wrap">
-        <div class="table-header">
-          <span class="table-title">Prossimi eventi</span>
-          <span class="table-count" id="upcoming-count">—</span>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Evento</th>
-              <th>Struttura</th>
-              <th>Data</th>
-              <th>Riempimento</th>
-              <th>Biglietti</th>
-              <th>Stato</th>
-            </tr>
-          </thead>
-          <tbody id="overview-table"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- VIEW: EVENTS -->
-    <div id="view-events" class="view">
-      <div class="page-header flex justify-between items-center">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiveCircuit — Dashboard di Gestione</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">🎪</div>
         <div>
-          <div class="section-title">Gestione Eventi</div>
-          <div class="section-sub">Tabella ordinabile — aggiungi, modifica o rimuovi eventi</div>
+          <div class="logo-text">LiveCircuit</div>
+          <div class="logo-sub">Management Platform</div>
         </div>
-        <button class="btn btn-primary" onclick="openEventModal()">+ Nuovo Evento</button>
       </div>
 
-      <div class="table-wrap">
-        <div class="table-header">
-          <span class="table-title">Tutti gli eventi</span>
-          <span class="table-count" id="events-count">—</span>
-          <div style="margin-left:auto; display:flex; gap:10px;">
-            <input type="text" class="search-input" placeholder="Cerca evento..." id="events-search" oninput="renderEventsTable()" style="width:200px" />
-            <select class="search-input" id="events-venue-filter" onchange="renderEventsTable()" style="width:160px">
-              <option value="">Tutte le strutture</option>
-              <option value="rock-arena">RockArena</option>
-              <option value="techcon">TechCon Center</option>
-              <option value="summer-pavilion">Summer Beat Pavilion</option>
-            </select>
+      <div class="sidebar-section">Navigazione</div>
+
+      <div
+        class="nav-item active"
+        data-view="overview"
+        onclick="navigate('overview', this)"
+      >
+        <span class="nav-icon">⬡</span> Overview
+        <div class="nav-dot" style="background: var(--rock)"></div>
+      </div>
+      <div
+        class="nav-item"
+        data-view="events"
+        onclick="navigate('events', this)"
+      >
+        <span class="nav-icon">🎫</span> Gestione Eventi
+        <div class="nav-dot" style="background: var(--tech)"></div>
+      </div>
+      <div
+        class="nav-item"
+        data-view="bookings"
+        onclick="navigate('bookings', this)"
+      >
+        <span class="nav-icon">📋</span> Prenotazioni
+        <div class="nav-dot" style="background: var(--ibiza)"></div>
+      </div>
+      <div
+        class="nav-item"
+        data-view="reports"
+        onclick="navigate('reports', this)"
+      >
+        <span class="nav-icon">📊</span> Reportistica
+        <div class="nav-dot" style="background: var(--green)"></div>
+      </div>
+
+      <div class="sidebar-section">Strutture</div>
+
+      <div class="venue-pill">
+        <div class="venue-dot" style="background: var(--rock)"></div>
+        <span class="text-sm">RockArena — Milano</span>
+      </div>
+      <div class="venue-pill">
+        <div class="venue-dot" style="background: var(--tech)"></div>
+        <span class="text-sm">TechCon Center — Berlino</span>
+      </div>
+
+      <div class="venue-pill">
+        <div class="venue-dot" style="background: var(--ibiza)"></div>
+        <span class="text-sm">Summer Breat Pavilion</span>
+      </div>
+
+      <div class="sidebar-venues">
+        <div class="venue-pill">
+          <div class="venue-dot" style="background: var(--tech)"></div>
+          <span class="text-sm">Summer Beat — Ibiza</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="main">
+      <div id="topbar">
+        <span id="topbar-title" class="topbar-title">Overview</span>
+        <span id="topbar-sub" class="topbar-sub">— Tutte le strutture</span>
+        <div class="topbar-actions" id="topbar-actions"></div>
+      </div>
+
+      <div id="content">
+        <!-- VIEW: OVERVIEW -->
+        <div id="view-overview" class="view active">
+          <div class="page-header">
+            <div class="section-title">Dashboard Generale</div>
+            <div class="section-sub">
+              Stato in tempo reale del circuito internazionale
+            </div>
+          </div>
+
+          <div class="cards-grid" id="kpi-cards"></div>
+
+          <div class="venue-cards" id="venue-cards"></div>
+
+          <div class="table-wrap">
+            <div class="table-header">
+              <span class="table-title">Prossimi eventi</span>
+              <span class="table-count" id="upcoming-count">—</span>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Evento</th>
+                  <th>Struttura</th>
+                  <th>Data</th>
+                  <th>Riempimento</th>
+                  <th>Biglietti</th>
+                  <th>Stato</th>
+                </tr>
+              </thead>
+              <tbody id="overview-table"></tbody>
+            </table>
           </div>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th onclick="sortEvents('name')">Evento <span class="sort-icon" id="sort-name">↕</span></th>
-              <th onclick="sortEvents('venueId')">Struttura <span class="sort-icon" id="sort-venueId">↕</span></th>
-              <th onclick="sortEvents('date')">Data <span class="sort-icon" id="sort-date">↕</span></th>
-              <th onclick="sortEvents('capacity')">Capienza <span class="sort-icon" id="sort-capacity">↕</span></th>
-              <th onclick="sortEvents('sold')">Venduti <span class="sort-icon" id="sort-sold">↕</span></th>
-              <th onclick="sortEvents('priceBase')">Prezzo <span class="sort-icon" id="sort-priceBase">↕</span></th>
-              <th>Riempimento</th>
-              <th>Azioni</th>
-            </tr>
-          </thead>
-          <tbody id="events-table"></tbody>
-        </table>
-      </div>
-    </div>
 
-    <!-- VIEW: BOOKINGS -->
-    <div id="view-bookings" class="view">
-      <div class="page-header flex justify-between items-center">
-        <div>
-          <div class="section-title">Sistema Prenotazioni</div>
-          <div class="section-sub">Registra nuove prenotazioni con sconto anticipato automatico</div>
-        </div>
-        <button class="btn btn-primary" onclick="openBookingWizard()">+ Nuova Prenotazione</button>
-      </div>
+        <!-- VIEW: EVENTS -->
+        <div id="view-events" class="view">
+          <div class="page-header flex justify-between items-center">
+            <div>
+              <div class="section-title">Gestione Eventi</div>
+              <div class="section-sub">
+                Tabella ordinabile — aggiungi, modifica o rimuovi eventi
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="openEventModal()">
+              + Nuovo Evento
+            </button>
+          </div>
 
-      <div class="table-wrap">
-        <div class="table-header">
-          <span class="table-title">Storico prenotazioni</span>
-          <span class="table-count" id="bookings-count">—</span>
-          <div style="margin-left:auto; display:flex; gap:10px;">
-            <input type="text" class="search-input" placeholder="Cerca..." id="bookings-search" oninput="renderBookingsTable()" style="width:180px" />
-            <select class="search-input" id="bookings-status-filter" onchange="renderBookingsTable()" style="width:140px">
-              <option value="">Tutti gli stati</option>
-              <option value="confirmed">Confermato</option>
-              <option value="pending">In attesa</option>
-            </select>
+          <div class="table-wrap">
+            <div class="table-header">
+              <span class="table-title">Tutti gli eventi</span>
+              <span class="table-count" id="events-count">—</span>
+              <div style="margin-left: auto; display: flex; gap: 10px">
+                <input
+                  type="text"
+                  class="search-input"
+                  placeholder="Cerca evento..."
+                  id="events-search"
+                  oninput="renderEventsTable()"
+                  style="width: 200px"
+                />
+                <select
+                  class="search-input"
+                  id="events-venue-filter"
+                  onchange="renderEventsTable()"
+                  style="width: 160px"
+                >
+                  <option value="">Tutte le strutture</option>
+                  <option value="rock-arena">RockArena</option>
+                  <option value="techcon">TechCon Center</option>
+                  <option value="summer-pavilion">Summer Beat Pavilion</option>
+                </select>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th onclick="sortEvents('name')">
+                    Evento <span class="sort-icon" id="sort-name">↕</span>
+                  </th>
+                  <th onclick="sortEvents('venueId')">
+                    Struttura <span class="sort-icon" id="sort-venueId">↕</span>
+                  </th>
+                  <th onclick="sortEvents('date')">
+                    Data <span class="sort-icon" id="sort-date">↕</span>
+                  </th>
+                  <th onclick="sortEvents('capacity')">
+                    Capienza <span class="sort-icon" id="sort-capacity">↕</span>
+                  </th>
+                  <th onclick="sortEvents('sold')">
+                    Venduti <span class="sort-icon" id="sort-sold">↕</span>
+                  </th>
+                  <th onclick="sortEvents('priceBase')">
+                    Prezzo <span class="sort-icon" id="sort-priceBase">↕</span>
+                  </th>
+                  <th>Riempimento</th>
+                  <th>Azioni</th>
+                </tr>
+              </thead>
+              <tbody id="events-table"></tbody>
+            </table>
           </div>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th onclick="sortBookings('id')">ID <span class="sort-icon">↕</span></th>
-              <th onclick="sortBookings('lastName')">Cliente <span class="sort-icon">↕</span></th>
-              <th>Evento</th>
-              <th onclick="sortBookings('date')">Data Prenotazione <span class="sort-icon">↕</span></th>
-              <th onclick="sortBookings('quantity')">Posti <span class="sort-icon">↕</span></th>
-              <th>Sconto</th>
-              <th onclick="sortBookings('total')">Totale <span class="sort-icon">↕</span></th>
-              <th>Stato</th>
-              <th>Azioni</th>
-            </tr>
-          </thead>
-          <tbody id="bookings-table"></tbody>
-        </table>
+
+        <!-- VIEW: BOOKINGS -->
+        <div id="view-bookings" class="view">
+          <div class="page-header flex justify-between items-center">
+            <div>
+              <div class="section-title">Sistema Prenotazioni</div>
+              <div class="section-sub">
+                Registra nuove prenotazioni con sconto anticipato automatico
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="openBookingWizard()">
+              + Nuova Prenotazione
+            </button>
+          </div>
+
+          <div class="table-wrap">
+            <div class="table-header">
+              <span class="table-title">Storico prenotazioni</span>
+              <span class="table-count" id="bookings-count">—</span>
+              <div style="margin-left: auto; display: flex; gap: 10px">
+                <input
+                  type="text"
+                  class="search-input"
+                  placeholder="Cerca..."
+                  id="bookings-search"
+                  oninput="renderBookingsTable()"
+                  style="width: 180px"
+                />
+                <select
+                  class="search-input"
+                  id="bookings-status-filter"
+                  onchange="renderBookingsTable()"
+                  style="width: 140px"
+                >
+                  <option value="">Tutti gli stati</option>
+                  <option value="confirmed">Confermato</option>
+                  <option value="pending">In attesa</option>
+                </select>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th onclick="sortBookings('id')">
+                    ID <span class="sort-icon">↕</span>
+                  </th>
+                  <th onclick="sortBookings('lastName')">
+                    Cliente <span class="sort-icon">↕</span>
+                  </th>
+                  <th>Evento</th>
+                  <th onclick="sortBookings('date')">
+                    Data Prenotazione <span class="sort-icon">↕</span>
+                  </th>
+                  <th onclick="sortBookings('quantity')">
+                    Posti <span class="sort-icon">↕</span>
+                  </th>
+                  <th>Sconto</th>
+                  <th onclick="sortBookings('total')">
+                    Totale <span class="sort-icon">↕</span>
+                  </th>
+                  <th>Stato</th>
+                  <th>Azioni</th>
+                </tr>
+              </thead>
+              <tbody id="bookings-table"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- VIEW: REPORTS -->
+        <div id="view-reports" class="view">
+          <div class="page-header">
+            <div class="section-title">Reportistica & Analytics</div>
+            <div class="section-sub">
+              Visualizzazioni interattive sull'andamento del circuito
+            </div>
+          </div>
+
+          <div class="cards-grid" id="report-kpis"></div>
+
+          <div class="charts-grid">
+            <div class="chart-card">
+              <div class="chart-card-title">Distribuzione tipologie eventi</div>
+              <div class="chart-card-sub">Per struttura</div>
+              <div class="chart-container"><canvas id="chartPie"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-card-title">Tasso di riempimento</div>
+              <div class="chart-card-sub">% capacità per evento</div>
+              <div class="chart-container"><canvas id="chartBar"></canvas></div>
+            </div>
+            <div class="chart-card wide">
+              <div class="chart-card-title">
+                Andamento temporale prenotazioni
+              </div>
+              <div class="chart-card-sub">Trend mensile delle prenotazioni</div>
+              <div class="chart-container" style="height: 240px">
+                <canvas id="chartLine"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="table-title mb-16">Storico Prenotazioni Completo</div>
+          <div class="table-wrap" id="report-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Cliente</th>
+                  <th>Evento</th>
+                  <th>Struttura</th>
+                  <th>Data</th>
+                  <th>Posti</th>
+                  <th>Sconto</th>
+                  <th>Totale</th>
+                  <th>Stato</th>
+                </tr>
+              </thead>
+              <tbody id="report-table"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- VIEW: REPORTS -->
-    <div id="view-reports" class="view">
-      <div class="page-header">
-        <div class="section-title">Reportistica & Analytics</div>
-        <div class="section-sub">Visualizzazioni interattive sull'andamento del circuito</div>
-      </div>
-
-      <div class="cards-grid" id="report-kpis"></div>
-
-      <div class="charts-grid">
-        <div class="chart-card">
-          <div class="chart-card-title">Distribuzione tipologie eventi</div>
-          <div class="chart-card-sub">Per struttura</div>
-          <div class="chart-container"><canvas id="chartPie"></canvas></div>
+    <!-- MODAL: EVENT FORM -->
+    <div class="modal-overlay" id="event-modal">
+      <div class="modal">
+        <div class="modal-head">
+          <span class="modal-title" id="event-modal-title">Nuovo Evento</span>
+          <button class="modal-close" onclick="closeModal('event-modal')">
+            ✕
+          </button>
         </div>
-        <div class="chart-card">
-          <div class="chart-card-title">Tasso di riempimento</div>
-          <div class="chart-card-sub">% capacità per evento</div>
-          <div class="chart-container"><canvas id="chartBar"></canvas></div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group full">
+              <label>Nome Evento *</label>
+              <input
+                type="text"
+                id="evt-name"
+                placeholder="Es. Summer Rock Festival"
+              />
+              <div class="field-error" id="err-evt-name"></div>
+            </div>
+            <div class="form-group">
+              <label>Struttura *</label>
+              <select id="evt-venue">
+                <option value="">Seleziona...</option>
+                <option value="rock-arena">RockArena — Milano</option>
+                <option value="techcon">TechCon Center — Berlino</option>
+                <option value="summer-pavilion">
+                  Summer Beat Pavilion — Ibiza
+                </option>
+              </select>
+              <div class="field-error" id="err-evt-venue"></div>
+            </div>
+            <div class="form-group">
+              <label>Tipo *</label>
+              <select id="evt-type">
+                <option value="">Seleziona...</option>
+                <option value="Concerto">Concerto</option>
+                <option value="Festival">Festival</option>
+                <option value="DJ Set">DJ Set</option>
+                <option value="Summit">Summit</option>
+                <option value="Conferenza">Conferenza</option>
+                <option value="Forum">Forum</option>
+                <option value="Workshop">Workshop</option>
+              </select>
+              <div class="field-error" id="err-evt-type"></div>
+            </div>
+            <div class="form-group">
+              <label>Data *</label>
+              <input type="date" id="evt-date" />
+              <div class="field-error" id="err-evt-date"></div>
+            </div>
+            <div class="form-group">
+              <label>Capienza Massima *</label>
+              <input
+                type="number"
+                id="evt-capacity"
+                placeholder="Es. 15000"
+                min="1"
+              />
+              <div class="field-error" id="err-evt-capacity"></div>
+            </div>
+            <div class="form-group">
+              <label>Biglietti Venduti</label>
+              <input type="number" id="evt-sold" placeholder="0" min="0" />
+              <div class="field-error" id="err-evt-sold"></div>
+            </div>
+            <div class="form-group">
+              <label>Prezzo Base (€) *</label>
+              <input
+                type="number"
+                id="evt-price"
+                placeholder="Es. 85"
+                min="1"
+                step="0.01"
+              />
+              <div class="field-error" id="err-evt-price"></div>
+            </div>
+          </div>
         </div>
-        <div class="chart-card wide">
-          <div class="chart-card-title">Andamento temporale prenotazioni</div>
-          <div class="chart-card-sub">Trend mensile delle prenotazioni</div>
-          <div class="chart-container" style="height:240px"><canvas id="chartLine"></canvas></div>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-      <div class="table-title mb-16">Storico Prenotazioni Completo</div>
-      <div class="table-wrap" id="report-table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Cliente</th>
-              <th>Evento</th>
-              <th>Struttura</th>
-              <th>Data</th>
-              <th>Posti</th>
-              <th>Sconto</th>
-              <th>Totale</th>
-              <th>Stato</th>
-            </tr>
-          </thead>
-          <tbody id="report-table"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: EVENT FORM -->
-<div class="modal-overlay" id="event-modal">
-  <div class="modal">
-    <div class="modal-head">
-      <span class="modal-title" id="event-modal-title">Nuovo Evento</span>
-      <button class="modal-close" onclick="closeModal('event-modal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-row">
-        <div class="form-group full">
-          <label>Nome Evento *</label>
-          <input type="text" id="evt-name" placeholder="Es. Summer Rock Festival" />
-          <div class="field-error" id="err-evt-name"></div>
-        </div>
-        <div class="form-group">
-          <label>Struttura *</label>
-          <select id="evt-venue">
-            <option value="">Seleziona...</option>
-            <option value="rock-arena">RockArena — Milano</option>
-            <option value="techcon">TechCon Center — Berlino</option>
-            <option value="summer-pavilion">Summer Beat Pavilion — Ibiza</option>
-          </select>
-          <div class="field-error" id="err-evt-venue"></div>
-        </div>
-        <div class="form-group">
-          <label>Tipo *</label>
-          <select id="evt-type">
-            <option value="">Seleziona...</option>
-            <option value="Concerto">Concerto</option>
-            <option value="Festival">Festival</option>
-            <option value="DJ Set">DJ Set</option>
-            <option value="Summit">Summit</option>
-            <option value="Conferenza">Conferenza</option>
-            <option value="Forum">Forum</option>
-            <option value="Workshop">Workshop</option>
-          </select>
-          <div class="field-error" id="err-evt-type"></div>
-        </div>
-        <div class="form-group">
-          <label>Data *</label>
-          <input type="date" id="evt-date" />
-          <div class="field-error" id="err-evt-date"></div>
-        </div>
-        <div class="form-group">
-          <label>Capienza Massima *</label>
-          <input type="number" id="evt-capacity" placeholder="Es. 15000" min="1" />
-          <div class="field-error" id="err-evt-capacity"></div>
-        </div>
-        <div class="form-group">
-          <label>Biglietti Venduti</label>
-          <input type="number" id="evt-sold" placeholder="0" min="0" />
-          <div class="field-error" id="err-evt-sold"></div>
-        </div>
-        <div class="form-group">
-          <label>Prezzo Base (€) *</label>
-          <input type="number" id="evt-price" placeholder="Es. 85" min="1" step="0.01" />
-          <div class="field-error" id="err-evt-price"></div>
+        <div class="modal-foot">
+          <button class="btn btn-secondary" onclick="closeModal('event-modal')">
+            Annulla
+          </button>
+          <button class="btn btn-primary" onclick="saveEvent()">
+            Salva Evento
+          </button>
         </div>
       </div>
     </div>
-    <div class="modal-foot">
-      <button class="btn btn-secondary" onclick="closeModal('event-modal')">Annulla</button>
-      <button class="btn btn-primary" onclick="saveEvent()">Salva Evento</button>
-    </div>
-  </div>
-</div>
 
-<!-- MODAL: BOOKING WIZARD -->
-<div class="modal-overlay" id="booking-modal">
-  <div class="modal" style="width:600px">
-    <div class="modal-head">
-      <span class="modal-title">Nuova Prenotazione</span>
-      <button class="modal-close" onclick="closeModal('booking-modal')">✕</button>
+    <div class="modal-overlay" id="booking-modal">
+      <div class="modal" style="width: 600px">
+        <div class="modal-head">
+          <span class="modal-title">Nuova Prenotazione</span>
+          <button class="modal-close" onclick="closeModal('booking-modal')">
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="steps-bar" id="wizard-steps"></div>
+          <div id="wizard-content"></div>
+        </div>
+      </div>
     </div>
-    <div class="modal-body">
-      <div class="steps-bar" id="wizard-steps"></div>
-      <div id="wizard-content"></div>
-    </div>
-  </div>
-</div>
 
-<!-- TOAST -->
-<div id="toast-container"></div>
+    <div id="toast-container"></div>
 
-<script src="app.js"></script>
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>

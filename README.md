@@ -2,16 +2,6 @@
 
 Interfaccia digitale di gestione e prenotazione per il circuito internazionale di eventi live.
 
-## Strutture
-
-| Struttura | Città | Capacità | Periodo |
-|-----------|-------|----------|---------|
-| RockArena | Milano 🇮🇹 | 15.000 | Tutto l'anno |
-| TechCon Center | Berlino 🇩🇪 | 45.000 | Ottobre – Maggio |
-| Summer Beat Pavilion | Ibiza 🇪🇸 | 22.000 | 1 Giu – 15 Set |
-
----
-
 ## Avvio
 
 Il progetto è **solo front-end** — non richiede back-end.  
@@ -24,23 +14,14 @@ I dati sono hardcoded in `src/data/db.json`.
 3. Clic destro su `index.html` → **Open with Live Server**
 4. Si apre automaticamente su `http://127.0.0.1:5500`
 
-### Metodo 2 — Python (se disponibile)
 
-```bash
-# Python 3
-python -m http.server 8080
-
-# poi apri: http://localhost:8080
-```
-
-### Metodo 3 — Node.js serve
+### Metodo 2 — Node.js serve
 
 ```bash
 npx serve .
-# poi apri l'URL indicato nel terminale
 ```
 
-> ⚠️ Il file `db.json` viene caricato via `fetch()`, quindi è **necessario un server HTTP**.  
+> Il file `db.json` viene caricato via `fetch()`, quindi è **necessario un server HTTP**.  
 > Aprire `index.html` direttamente da file system (`file://`) **non funziona** per motivi di CORS.
 
 ## Funzionalità implementate
