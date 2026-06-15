@@ -256,7 +256,6 @@ function sortEvents(key) {
   renderEventsTable();
 }
 
-/* ============ EVENT MODAL ============ */
 function openEventModal(id = null) {
   editingEventId = id;
   document.getElementById("event-modal-title").textContent = id
@@ -767,7 +766,6 @@ function confirmBooking(discount, total) {
   toast(`Prenotazione confermata per ${u.firstName} ${u.lastName}!`, "success");
 }
 
-/* ============ REPORTS ============ */
 function renderReports() {
   const totalRev = DB.bookings.reduce((s, b) => s + b.total, 0);
   const avgDiscount = DB.bookings.filter((b) => b.discount > 0).length;
