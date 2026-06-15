@@ -676,11 +676,19 @@ function calcDiscount(eventDate, bookingDate) {
   const ed = new Date(eventDate);
   const bd = new Date(bookingDate);
   const days = Math.floor((ed - bd) / (1000 * 60 * 60 * 24));
-  if (days >= 60) return 20;
-  if (days >= 30) return 15;
-  if (days >= 14) return 10;
-  if (days >= 7) return 5;
-  return 0;
+
+  switch (days) {
+    case 60:
+      return 20;
+    case 30:
+      return 15;
+    case 14:
+      return 10;
+    case 7:
+      return 5;
+    default:
+      return 0;
+  }
 }
 
 function renderWizardStep2() {
