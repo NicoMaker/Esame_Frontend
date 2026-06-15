@@ -43,22 +43,6 @@ npx serve .
 > ⚠️ Il file `db.json` viene caricato via `fetch()`, quindi è **necessario un server HTTP**.  
 > Aprire `index.html` direttamente da file system (`file://`) **non funziona** per motivi di CORS.
 
----
-
-## Struttura del progetto
-
-```
-venue-dashboard/
-├── index.html          # Markup principale + layout sidebar/topbar/views
-├── app.js              # Logica applicativa completa
-├── src/
-│   └── data/
-│       └── db.json     # Dati hardcoded (venues, events, bookings)
-└── README.md
-```
-
----
-
 ## Funzionalità implementate
 
 ### Compito 1 — Architettura modulare
@@ -92,11 +76,3 @@ venue-dashboard/
 - Tabella storica completa prenotazioni
 
 ---
-
-## Tecnologie
-
-- **HTML5 / CSS3** — layout, design system, animazioni
-- **Vanilla JavaScript** (ES6+) — logica applicativa, manipolazione DOM
-- **Chart.js 4.4** — grafici interattivi (via CDN)
-- **Google Fonts** — Space Grotesk + JetBrains Mono
-- **JSON** — dati hardcoded in `src/data/db.json`
