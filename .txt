@@ -1,0 +1,86 @@
+Siamo i gestori di un circuito internazionale composto da 3 grnadi aree e e poli riferistici in Europa adibiti alla realizzazione di eventi live
+(concerti,conferenze,festival). Ciascuna struttura presenta le seguenti specifiche:
+
+
+1) RockArena (Milano)
+   - Target: concerti rock, metal e grandi show
+   - Periodo attività : aperto tutto l'anno
+   - pubblico target : gruppi di amici giovani
+   - capienza massima : 15.000 posti. Eventi di punta: Summer Rock Festival, Metal Night OVer
+   - Servizi interni : Main Stage Bar (cocktail), Food Truck Zone (ristorazione varia), VIP lounge (premium service).
+
+2) TechCon Center (Berlino)
+    - Target : conferenze, summit e workshop B2B
+    - Periodo attività : Da Ottobre a Maggio
+    - pubblico target : professionisti, aziende e studenti
+    - capienza massima : 45.000 posti. Eventi di punta : AI global Summit, WebDev Developer Conference
+    - servizi interni : Cofee Break Station (colazioni/snack), Executive Restaurant (business buffet), Coworking Break
+
+3) Summer Breat Pavilion (ibiza)
+    - Target : Festival di Musica Eletronica e DJ set
+    - Periodo attività : dal 01/06 al 15/09
+    - pubblico Target : coppie, gruppi di amici
+    - capienza massima : 22.000 posti. Eventi di punta: ElectroSplash Night, Sunset Eletronic Season
+    - Servizi interni : BEach Club Bar (cocktail), Open Air Plaza (ristorante veloce), Vip prive terace
+
+Obiettivi dell'applicazione /progetto 
+
+l'Obiettivo centrale è la progettazione e lo sviluppo di un'interfacia digitale di dashboard di gestione e prenotazione.
+lo strumento deve consentire:
+
+- AI manager dei poli riferistici di monitorare l'andamento degli eventi 
+- AI dipendenti/operatori dei bottheghini di gestire in modo centralizzato gli eventi operativi, le prenotazioni e di analizzare la reportistica, 
+stategia per massimizzare le vendite dei servizi acessori senza intaccare la qualità dell'esperienza utente.
+
+Vincoli, Specifiche o requisiti dell'applicazione/progetto
+
+la prova è incentrata sullo svilluppo front-end, pertando non è richiesta l'implemeentazione di un back-end dedicato.
+è consentito l'utilizzo di dati hard-coded in json o json server. Qualora fosse neccessario avviare un servizio back-end, le relative istruzioni
+dovranno essere documentate nel file README.md, cosi da garantire il coretto avvio in fase di verifica.
+
+
+Descrizione dei compiti da realizzare:
+
+compito 1 - progettazione architetturale 
+
+Architettura modulare e responsiva con wapper 
+
+configurare l'architettura dell'applicazione, con un separatore logica dei componenti e preparare i componenti wrapper funzionali
+(es. layout della dashboard, sidebar di navigazione, viste tabellari per CRUD, ecc...)
+
+La soluzione deve essere modulare, responsiva e focalizzata su un'interfaccia pulita e professionale.
+
+
+Compito 2 - Gestione Eventi
+
+tabella ordinata ordinabile e form con validazione
+
+implementazione di:
+
+- una tabella riassuntiva degli eventi attivi (con funzioni di ordinamento per data/capienza)
+- integrazioni di un form per l'inseriemnto o la modifica dei dati di un evento, provvisto di sistemi di validezione dei campi-
+
+
+Compito 3 - Sistema prenotazioni
+
+prenotazioni con scelta evento, form validato e sconto automatico per anticipo
+
+interfaccia dedicata alla registrazione di una nuova prenotazione:
+
+- sezione dell'evento
+- form con dati dell'utente validati (json separato)
+- schermata di riepilogo e calcolo automatico dell'eventuale sconto applicato in base ai giorni di anticipo.
+
+Compito 4 - Dashboard Reportistica
+
+tabelle storiche e grafici iterativi (torte,barre, linee) sui dati delle prenotazioni
+
+schermata analitica contenente tabelle storiche delle prenotazioni e visualizzazioni grafiche (grafici a torte, a barre e a linee)
+che rappresentano in modo interativo:
+
+
+- la distribuzione delle tipologie di eventi nelle diverse strutture.
+- il tasso di riempimento percentuale di ciascun evento rispetto alla capienza massima
+- l'andamento temporale delle prenotazioni effetu
+
+no commenti e tutto moderno 

@@ -1,112 +1,102 @@
-# 🏢 CoWork Hub Dashboard
+# LiveCircuit — Dashboard di Gestione
 
-Dashboard professionale per la gestione di spazi co-working.
+Interfaccia digitale di gestione e prenotazione per il circuito internazionale di eventi live.
 
----
+## Strutture
 
-## Stack Tecnologico
-
-| Libreria         | Scopo                                                  |
-| ---------------- | ------------------------------------------------------ |
-| **React 18**     | Framework UI                                           |
-| **Recharts**     | Grafici interattivi (torta, barre, linee)              |
-| **Lucide React** | Icone                                                  |
-| **CSS Custom**   | Design system con variabili CSS (no framework esterno) |
-| **Google Fonts** | Syne (display) + DM Sans (body)                        |
-| **Vite 5**       | Build tool e dev server                                |
+| Struttura | Città | Capacità | Periodo |
+|-----------|-------|----------|---------|
+| RockArena | Milano 🇮🇹 | 15.000 | Tutto l'anno |
+| TechCon Center | Berlino 🇩🇪 | 45.000 | Ottobre – Maggio |
+| Summer Beat Pavilion | Ibiza 🇪🇸 | 22.000 | 1 Giu – 15 Set |
 
 ---
 
-## ⚡ Avvio Rapido
+## Avvio
 
-### 1. Prerequisiti
+Il progetto è **solo front-end** — non richiede back-end.  
+I dati sono hardcoded in `src/data/db.json`.
 
-Installa **Node.js LTS** da [nodejs.org](https://nodejs.org) se non lo hai già.
+### Metodo 1 — Live Server (VS Code)
 
-### 2. Installa le dipendenze
+1. Apri la cartella del progetto in VS Code
+2. Installa l'estensione **Live Server** (ritwick.vscode-live-server)
+3. Clic destro su `index.html` → **Open with Live Server**
+4. Si apre automaticamente su `http://127.0.0.1:5500`
+
+### Metodo 2 — Python (se disponibile)
 
 ```bash
-npm install
+# Python 3
+python -m http.server 8080
+
+# poi apri: http://localhost:8080
 ```
 
-> Attendi il completamento (circa 1–2 minuti, scarica ~1400 pacchetti)
-
-### 3. Avvia l'applicazione
+### Metodo 3 — Node.js serve
 
 ```bash
-npm run dev
+npx serve .
+# poi apri l'URL indicato nel terminale
 ```
 
-> Si apre automaticamente il browser su **http://localhost:5173**
+> ⚠️ Il file `db.json` viene caricato via `fetch()`, quindi è **necessario un server HTTP**.  
+> Aprire `index.html` direttamente da file system (`file://`) **non funziona** per motivi di CORS.
 
-### 4. Build per produzione (opzionale)
+---
 
-```bash
-npm run build
+## Struttura del progetto
+
 ```
-
-> I file ottimizzati vengono generati nella cartella `dist/`
-
-### 5. Anteprima build di produzione (opzionale)
-
-```bash
-npm run preview
+venue-dashboard/
+├── index.html          # Markup principale + layout sidebar/topbar/views
+├── app.js              # Logica applicativa completa
+├── src/
+│   └── data/
+│       └── db.json     # Dati hardcoded (venues, events, bookings)
+└── README.md
 ```
 
 ---
 
-## Funzionalità
+## Funzionalità implementate
 
-### 🏠 Dashboard
+### Compito 1 — Architettura modulare
+- Layout responsive con sidebar fissa, topbar e area contenuto
+- Navigazione SPA (Single Page Application) senza router esterno
+- Design system con CSS variables, componenti riutilizzabili
 
-- KPI cards: spazi disponibili, prenotazioni attive, fatturato totale, totale spazi
-- Barre di avanzamento occupazione per tipologia
-- Azioni rapide di navigazione
-- Elenco prenotazioni recenti
+### Compito 2 — Gestione Eventi
+- Tabella eventi con ordinamento su tutte le colonne (↑ ↓)
+- Filtri per struttura e ricerca testuale
+- Form con validazione completa (nome, struttura, data, capienza, prezzo)
+- CRUD: creazione, modifica e cancellazione eventi
 
-### 🏢 Gestione Spazi
+### Compito 3 — Sistema Prenotazioni
+- Wizard a 3 step: selezione evento → dati utente → riepilogo
+- Validazione form utente (nome, cognome, email, telefono, posti)
+- **Sconto automatico per anticipo**:
+  - 60+ giorni → 20% (Early Bird)
+  - 30–59 giorni → 15%
+  - 14–29 giorni → 10%
+  - 7–13 giorni → 5%
+  - < 7 giorni → nessuno sconto
+- Riepilogo con calcolo totale e messaggio sconto
+- Aggiornamento automatico posti disponibili
 
-- Vista griglia e tabella (toggle)
-- Filtri per tipologia (scrivania, sala riunioni, ufficio) e per stato
-- Ricerca per nome spazio
-- Form aggiunta nuovo spazio con validazione campi
-- Cambio stato: Disponibile ↔ Manutenzione
-- Eliminazione spazio
-
-### 📅 Sistema di Prenotazione — Wizard 3 Step
-
-1. **Selezione spazio** — lista filtrabile degli spazi disponibili
-2. **Dati prenotazione** — nome cliente, data, fascia oraria inizio/fine con calcolo automatico del costo
-3. **Conferma** — riepilogo completo con tariffa stimata
-
-### 📊 Reportistica & Analytics
-
-- Grafico **torta** — distribuzione tipologie spazi richiesti
-- Grafico **barre** — spazi più prenotati
-- Grafico **linee** — andamento fatturato ultimi 20 giorni
-- Grafico **barre raggruppate** — confronto settimanale
-- Tabella cronologica con filtri, ricerca e toggle prenotazioni annullate
-- KPI: fatturato totale, prenotazioni confermate, ore prenotate, valore medio
+### Compito 4 — Reportistica
+- KPI cards aggregate (prenotazioni, revenue, sconti)
+- **Grafico Donut**: distribuzione tipologie eventi
+- **Grafico Barre**: tasso di riempimento % per evento (colori dinamici)
+- **Grafico Linee**: andamento temporale prenotazioni e revenue (doppio asse Y)
+- Tabella storica completa prenotazioni
 
 ---
 
-## Struttura del Progetto
+## Tecnologie
 
-```
-cowork-hub/
-├── index.html                    # Entry HTML (gestito da Vite)
-├── vite.config.js                # Configurazione Vite
-├── package.json
-├── README.md
-└── src/
-    ├── main.jsx                  # Entry point React
-    ├── App.jsx                   # Root + Context globale (stato condiviso)
-    ├── data.jsx                  # Dati hardcoded: spazi + prenotazioni
-    ├── styles.css                # Design system completo (variabili CSS)
-    └── components/
-        ├── Layout.jsx            # Shell: Sidebar + Topbar
-        ├── DashboardHome.jsx     # Pagina Dashboard
-        ├── SpacesManager.jsx     # Gestione Spazi
-        ├── BookingSystem.jsx     # Wizard Prenotazione
-        └── ReportsDashboard.jsx  # Analytics & Report
-```
+- **HTML5 / CSS3** — layout, design system, animazioni
+- **Vanilla JavaScript** (ES6+) — logica applicativa, manipolazione DOM
+- **Chart.js 4.4** — grafici interattivi (via CDN)
+- **Google Fonts** — Space Grotesk + JetBrains Mono
+- **JSON** — dati hardcoded in `src/data/db.json`
