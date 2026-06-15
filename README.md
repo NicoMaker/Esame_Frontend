@@ -49,3 +49,6 @@ I dati sono hardcoded in [db.json](db.json)
 - **Grafico Barre**: tasso di riempimento % per evento (colori dinamici)
 - **Grafico Linee**: andamento temporale prenotazioni e revenue (doppio asse Y)
 - Tabella storica completa prenotazioni
+
+
+la parte gestore l'avrei realizzata con un bottone in akto dove decidevi se admin o gestore e quando cliccavi quella selezione allora non vedevi la sezione prenotazioni per l'admin
