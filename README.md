@@ -14,15 +14,6 @@ I dati sono hardcoded in [`src/data/db.json`](src/data/db.json)
 3. Clic destro su `index.html` → **Open with Live Server**
 4. Si apre automaticamente su `http://127.0.0.1:5500`
 
-### Metodo 2 — Node.js serve
-
-```bash
-npm i
-npm run dev
-```
-
-> Il file `db.json` viene caricato via `fetch()`, quindi è **necessario un server HTTP**.  
-> Aprire `index.html` direttamente da file system (`file://`) **non funziona** per motivi di CORS.
 
 ## Funzionalità implementate
 
