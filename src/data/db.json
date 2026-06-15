@@ -23,11 +23,7 @@
       "period": "Ottobre – Maggio",
       "audience": "Professionisti, aziende, studenti",
       "color": "#457B9D",
-      "services": [
-        "Coffee Break Station",
-        "Executive Restaurant",
-        "Coworking Break"
-      ],
+      "services": ["Coffee Break Station", "Executive Restaurant", "Coworking Break"],
       "events": ["AI Global Summit", "WebDev Developer Conference"]
     },
     {
@@ -199,6 +195,19 @@
       "total": 130
     },
     {
+      "id": "bk-005",
+      "eventId": "evt-005",
+      "firstName": "Marco",
+      "lastName": "Ferrari",
+      "email": "m.ferrari@startup.io",
+      "phone": "+39 333 2468135",
+      "quantity": 3,
+      "date": "2025-08-05",
+      "status": "pending",
+      "discount": 5,
+      "total": 912
+    },
+    {
       "id": "bk-006",
       "eventId": "evt-008",
       "firstName": "Elena",
@@ -249,6 +258,19 @@
       "status": "confirmed",
       "discount": 10,
       "total": 148.5
+    },
+    {
+      "id": "bk-010",
+      "eventId": "evt-009",
+      "firstName": "Isabella",
+      "lastName": "Romano",
+      "email": "isa.romano@icloud.com",
+      "phone": "+39 366 4529871",
+      "quantity": 4,
+      "date": "2025-07-25",
+      "status": "pending",
+      "discount": 10,
+      "total": 342
     }
   ]
 }
