@@ -21,7 +21,11 @@
       "period": "Ottobre – Maggio",
       "audience": "Professionisti, aziende, studenti",
       "color": "#457B9D",
-      "services": ["Coffee Break Station", "Executive Restaurant", "Coworking Break"],
+      "services": [
+        "Coffee Break Station",
+        "Executive Restaurant",
+        "Coworking Break"
+      ],
       "events": ["AI Global Summit", "WebDev Developer Conference"]
     },
     {

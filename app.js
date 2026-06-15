@@ -16,7 +16,7 @@ let wizardData = { eventId: null, user: {}, quantity: 1 };
 let charts = {};
 
 async function init() {
-  const res = await fetch("src/data/db.json");
+  const res = await fetch("db.json");
   const data = await res.json();
   DB.venues = data.venues;
   DB.events = data.events;
