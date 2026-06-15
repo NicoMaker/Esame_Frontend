@@ -191,7 +191,6 @@ function renderOverview() {
     .join("");
 }
 
-/* ============ EVENTS TABLE ============ */
 function renderEventsTable() {
   const search = (
     document.getElementById("events-search")?.value || ""
