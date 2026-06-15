@@ -153,10 +153,9 @@ function renderOverview() {
       return `
       <div class="venue-card">
         <div class="venue-card-top" style="background:linear-gradient(135deg,${v.color}22,${v.color}44)">
-          <span style="font-size:28px">${v.flag}</span>
+          <span style="font-size:28px">${v.name}</span>
         </div>
         <div class="venue-card-body">
-          <div class="venue-card-name">${v.name}</div>
           <div class="venue-card-city">${v.city}</div>
           <div class="venue-card-stat">${vEvents.length} eventi · Cap. ${v.capacity.toLocaleString("it-IT")} · ${pct}% occupazione</div>
           <div class="fill-bar mt-8"><div class="fill-bar-inner" style="width:${pct}%;background:${v.color}"></div></div>
