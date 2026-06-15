@@ -82,7 +82,7 @@ function typeBadge(type) {
 
 function statusBadge(s) {
   return s === "confirmed"
-    ? `<span class="badge badge-green">✓ Confermato</span>`
+    ? `<span class="badge badge-green">Confermato</span>`
     : `<span class="badge badge-yellow"> In attesa</span>`;
 }
 
