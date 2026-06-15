@@ -1,7 +1,3 @@
-// ─── DATA LAYER ────────────────────────────────────────────────────────────
-// Static data lives in data.json; this file re-exports constants and
-// builds the runtime-ready arrays (resolving relative dates).
-
 import rawData from "./data.json";
 
 export const SPACE_TYPES = rawData.spaceTypes;
