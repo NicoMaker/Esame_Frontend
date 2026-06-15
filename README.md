@@ -6,8 +6,8 @@ Interfaccia digitale di gestione e prenotazione per il circuito internazionale d
 
 ## Avvio
 
-Il progetto è **solo front-end** — non richiede back-end.  
-I dati sono hardcoded in [src/data/db.json](src/data/db.json)
+Il progetto è **solo front-end**.  
+I dati sono hardcoded in [db.json](db.json)
 
 1. Apri la cartella del progetto in VS Code
 2. Installa l'estensione **Live Server** (ritwick.vscode-live-server)
