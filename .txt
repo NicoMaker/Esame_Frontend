@@ -82,5 +82,3 @@ che rappresentano in modo interativo:
 - la distribuzione delle tipologie di eventi nelle diverse strutture.
 - il tasso di riempimento percentuale di ciascun evento rispetto alla capienza massima
 - l'andamento temporale delle prenotazioni effetu
-
-no commenti e tutto moderno 
