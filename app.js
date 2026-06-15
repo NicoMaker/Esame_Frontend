@@ -54,12 +54,8 @@ function navigate(view, el) {
   if (view === "reports") setTimeout(() => renderCharts(), 100);
 }
 
-function getVenue(id) {
-  return DB.venues.find((v) => v.id === id);
-}
-function getEvent(id) {
-  return DB.events.find((e) => e.id === id);
-}
+const getVenue = (id) => DB.venues.find((v) => v.id === id);
+const getEvent = (id) => DB.events.find((e) => e.id === id);
 
 function venueBadge(venueId) {
   const map = {
@@ -116,9 +112,7 @@ function fmtDate(d) {
   return `${g} ${months[+m - 1]} ${y}`;
 }
 
-function fmtMoney(n) {
-  return "€ " + Number(n).toLocaleString("it-IT", { minimumFractionDigits: 2 });
-}
+const fmtMoney = (n) => "€ " + Number(n).toLocaleString("it-IT", { minimumFractionDigits: 2 });
 
 function renderOverview() {
   const totalEvents = DB.events.length;
