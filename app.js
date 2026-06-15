@@ -83,7 +83,7 @@ function typeBadge(type) {
 function statusBadge(s) {
   return s === "confirmed"
     ? `<span class="badge badge-green">✓ Confermato</span>`
-    : `<span class="badge badge-yellow">⏳ In attesa</span>`;
+    : `<span class="badge badge-yellow"> In attesa</span>`;
 }
 
 function fillBar(sold, capacity, color) {
@@ -211,8 +211,8 @@ function renderEventsTable() {
   document.getElementById("events-count").textContent = data.length + " eventi";
   document.getElementById("events-table").innerHTML = data.length
     ? data
-        .map(
-          (e) => `
+      .map(
+        (e) => `
     <tr>
       <td><strong>${e.name}</strong></td>
       <td>${venueBadge(e.venueId)}</td>
@@ -223,14 +223,14 @@ function renderEventsTable() {
       <td>${fillBar(e.sold, e.capacity)}</td>
       <td>
         <div class="flex gap-8">
-          <button class="btn btn-ghost btn-sm" onclick="openEventModal('${e.id}')">✏️</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteEvent('${e.id}')">🗑️</button>
+          <button class="btn btn-ghost btn-sm" onclick="openEventModal('${e.id}')">update</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteEvent('${e.id}')">delete</button>
         </div>
       </td>
     </tr>
   `,
-        )
-        .join("")
+      )
+      .join("")
     : `<tr><td colspan="8"><div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-title">Nessun evento trovato</div><div class="empty-state-sub">Modifica i filtri o aggiungi un nuovo evento</div></div></td></tr>`;
 }
 
@@ -421,9 +421,9 @@ function renderBookingsTable() {
     data.length + " prenotazioni";
   document.getElementById("bookings-table").innerHTML = data.length
     ? data
-        .map((b) => {
-          const evt = getEvent(b.eventId);
-          return `
+      .map((b) => {
+        const evt = getEvent(b.eventId);
+        return `
       <tr>
         <td class="mono text-xs text-muted">${b.id}</td>
         <td><strong>${b.lastName}</strong>, ${b.firstName}<br><span class="text-xs text-muted">${b.email}</span></td>
@@ -434,11 +434,11 @@ function renderBookingsTable() {
         <td class="mono">${fmtMoney(b.total)}</td>
         <td>${statusBadge(b.status)}</td>
         <td>
-          <button class="btn btn-danger btn-sm" onclick="deleteBooking('${b.id}')">🗑️</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteBooking('${b.id}')">delete</button>
         </td>
       </tr>`;
-        })
-        .join("")
+      })
+      .join("")
     : `<tr><td colspan="9"><div class="empty-state"><div class="empty-state-icon"></div><div class="empty-state-title">Nessuna prenotazione</div><div class="empty-state-sub">Crea una nuova prenotazione con il pulsante in alto</div></div></td></tr>`;
 }
 
@@ -497,15 +497,15 @@ function renderWizardStep0() {
       <select id="wiz-event" style="margin-bottom:0" onchange="updateWizEvent()">
         <option value="">— Scegli un evento —</option>
         ${DB.events
-          .map((e) => {
-            const v = getVenue(e.venueId);
-            const pct = Math.round((e.sold / e.capacity) * 100);
-            const avail = e.capacity - e.sold;
-            return `<option value="${e.id}" ${avail === 0 ? "disabled" : ""} ${e.id === wizardData.eventId ? "selected" : ""}>
+      .map((e) => {
+        const v = getVenue(e.venueId);
+        const pct = Math.round((e.sold / e.capacity) * 100);
+        const avail = e.capacity - e.sold;
+        return `<option value="${e.id}" ${avail === 0 ? "disabled" : ""} ${e.id === wizardData.eventId ? "selected" : ""}>
             ${e.name} — ${v?.city || ""} | ${fmtDate(e.date)} | Disp: ${avail.toLocaleString("it-IT")}
           </option>`;
-          })
-          .join("")}
+      })
+      .join("")}
       </select>
       <div class="field-error" id="err-wiz-event"></div>
     </div>
@@ -698,11 +698,11 @@ function renderWizardStep2() {
 
   let discountMsg = "";
   if (days >= 60)
-    discountMsg = `🎉 Prenotazione con ${days} giorni di anticipo — sconto Early Bird 20%!`;
+    discountMsg = `Prenotazione con ${days} giorni di anticipo — sconto Early Bird 20%!`;
   else if (days >= 30)
-    discountMsg = `✨ Prenotazione con ${days} giorni di anticipo — sconto 15%!`;
+    discountMsg = ` Prenotazione con ${days} giorni di anticipo — sconto 15%!`;
   else if (days >= 14)
-    discountMsg = `👍 Prenotazione con ${days} giorni di anticipo — sconto 10%!`;
+    discountMsg = ` Prenotazione con ${days} giorni di anticipo — sconto 10%!`;
   else if (days >= 7)
     discountMsg = `Prenotazione con ${days} giorni di anticipo — sconto 5%`;
   else
@@ -980,7 +980,7 @@ function toast(msg, type = "success") {
   const container = document.getElementById("toast-container");
   const t = document.createElement("div");
   t.className = `toast ${type}`;
-  t.innerHTML = `<span>${type === "success" ? "✅" : "🗑️"}</span> ${msg}`;
+  t.innerHTML = `<span>${type === "success" ? "✅" : "delete"}</span> ${msg}`;
   container.appendChild(t);
   setTimeout(() => t.remove(), 3500);
 }
