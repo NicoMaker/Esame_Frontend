@@ -839,7 +839,6 @@ function renderCharts() {
   if (charts.bar) charts.bar.destroy();
   if (charts.line) charts.line.destroy();
 
-  // PIE: distribuzione tipologie per struttura
   const typeCounts = {};
   DB.events.forEach((e) => {
     typeCounts[e.type] = (typeCounts[e.type] || 0) + 1;
